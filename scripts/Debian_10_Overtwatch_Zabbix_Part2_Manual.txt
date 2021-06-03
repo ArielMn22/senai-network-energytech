@@ -1,0 +1,53 @@
+mysql -uroot -p
+
+create database zabbix character set utf8 collate utf8_bin;
+create user zabbix@localhost identified by 'Senai@132';
+grant all privileges on zabbix.* to zabbix@localhost;
+quit;
+
+zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz | mysql -uzabbix -p zabbix
+
+echo "DBPassword=Senai@132" >> /etc/zabbix/zabbix_server.conf
+
+echo '
+#
+# Zabbix monitoring system php web frontend
+#
+
+Alias /zabbix /usr/share/zabbix
+
+<Directory "/usr/share/zabbix">
+    Options FollowSymLinks
+    AllowOverride None
+    Require all granted
+
+    <IfModule mod_php7.c>
+        php_value max_execution_time 300
+        php_value memory_limit 512M
+        php_value post_max_size 128M
+        php_value upload_max_filesize 128M
+        php_value max_input_time 300
+        php_value max_input_vars 10000
+        php_value always_populate_raw_post_data -1
+        php_value date.timezone America/Sao_Paulo
+    </IfModule>
+</Directory>
+
+<Directory "/usr/share/zabbix/conf">
+    Require all denied
+</Directory>
+
+<Directory "/usr/share/zabbix/app">
+    Require all denied
+</Directory>
+
+<Directory "/usr/share/zabbix/include">
+    Require all denied
+</Directory>
+
+<Directory "/usr/share/zabbix/local">
+    Require all denied
+</Directory>' > /etc/zabbix/apache.conf
+
+systemctl restart zabbix-server zabbix-agent apache2
+systemctl enable zabbix-server zabbix-agent apache2
