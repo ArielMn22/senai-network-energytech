@@ -13,7 +13,8 @@ read;
 apt update -y
 apt upgrade -y
 #apt install php libapache2-mod-php php-mcrypt php-mysql
-apt install php libapache2-mod-php php-mysql
+apt install php libapache2-mod-php php-mysql -y
+apt install git -y
 
 # Echo config to file
 echo "
@@ -55,6 +56,9 @@ echo "
 	CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
 " > /etc/apache2/sites-available/$wpURL.conf
+
+git clone https://github.com/joao-amaral-b/senai-wp
+cp -r senai-wp/* /var/www/$wpURL
 
 # Enable the site
 a2ensite $wpURL.conf
