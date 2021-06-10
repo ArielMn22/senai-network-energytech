@@ -63,7 +63,7 @@
  ## Enabling Mod Rewrite  
  a2enmod rewrite  
  php5enmod mcrypt  
-  
+   
  ## Install PhpMyAdmin  
  apt-get install phpmyadmin -y  
    
