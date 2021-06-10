@@ -7,12 +7,19 @@ apt install -y apache2 php7.3 libapache2-mod-php7.3 php7.3-common php7.3-mbstrin
 
 apt install -y default-mysql-server
 
+clear;
+
+echo "Now install MariaDB:"
+
 mysql_secure_installation
 
-echo "CREATE DATABASE wordpress;" | mysql -u root -p
-echo "GRANT ALL PRIVILEGES on wordpress.* TO 'wordpress_user'@'localhost' IDENTIFIED BY 'wordpress_pss123';" | mysql -u root -p
-echo "FLUSH PRIVILEGES;" | mysql -u root -p
-echo "EXIT;" | mysql -u root -p
+echo "Please, enter the passwor that you used for the MariaDB root user: "
+read mariaDBRootUserPassword
+
+echo "CREATE DATABASE wordpress;" | mysql -u root -p$mariaDBRootUserPassword
+echo "GRANT ALL PRIVILEGES on wordpress.* TO 'wordpress_user'@'localhost' IDENTIFIED BY 'wordpress_pss123';" | mysql -u root -p$mariaDBRootUserPassword
+echo "FLUSH PRIVILEGES;" | mysql -u root -p$mariaDBRootUserPassword
+echo "EXIT;" | mysql -u root -p$mariaDBRootUserPassword
 
 cd /tmp/
 wget -c https://wordpress.org/latest.tar.gz
