@@ -3,6 +3,15 @@
 echo "Insert you IP Adress:"
 read ipaddress
 
+echo -e "\n"
+
+echo -e "MariaDB\n"
+echo "Insert the user to be created: "
+read user
+
+echo "Insert the user password: "
+read userpassword
+
 apt install -y apache2 php7.3 libapache2-mod-php7.3 php7.3-common php7.3-mbstring php7.3-xmlrpc php7.3-soap php7.3-gd php7.3-xml php7.3-intl php7.3-mysql php7.3-cli php7.3-ldap php7.3-zip php7.3-curl
 
 apt install -y default-mysql-server
@@ -17,7 +26,7 @@ echo "Please, enter the password that you just used for the MariaDB root user on
 read mariaDBRootUserPassword
 
 echo "CREATE DATABASE wordpress;" | mysql -u root -p$mariaDBRootUserPassword
-echo "GRANT ALL PRIVILEGES on wordpress.* TO 'wordpress_user'@'localhost' IDENTIFIED BY 'wordpress_pss123';" | mysql -u root -p$mariaDBRootUserPassword
+echo "GRANT ALL PRIVILEGES on wordpress.* TO '$user'@'localhost' IDENTIFIED BY '$userpassword';" | mysql -u root -p$mariaDBRootUserPassword
 echo "FLUSH PRIVILEGES;" | mysql -u root -p$mariaDBRootUserPassword
 echo "EXIT;" | mysql -u root -p$mariaDBRootUserPassword
 
