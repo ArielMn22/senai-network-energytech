@@ -19,7 +19,9 @@
  echo  
    
  ## Update system  
- apt-get update -y  
+ apt update -y
+ 
+ apt install rsync -y
    
  ## Install Apache  
  sudo apt-get install apache2 apache2-utils -y  
@@ -45,13 +47,12 @@
  chown -R www-data:www-data /var/www/html/  
  chmod -R 755 /var/www/html/  
    
- ## Configure WordPress Database  
- mysql -uroot -p$db_root_password <<QUERY_INPUT  
- CREATE DATABASE $wordpress_db_name;  
- GRANT ALL PRIVILEGES ON $wordpress_db_name.* TO 'root'@'localhost' IDENTIFIED BY '$db_root_password';  
- FLUSH PRIVILEGES;  
- EXIT  
- QUERY_INPUT  
+ ## Configure WordPress Database    
+ echo "CREATE DATABASE $wordpress_db_name;" | mysql -uroot -p$db_root_password  
+ echo "CREATE DATABASE $wordpress_db_name;" | mysql -uroot -p$db_root_password  
+ echo "GRANT ALL PRIVILEGES ON $wordpress_db_name.* TO 'root'@'localhost' IDENTIFIED BY '$db_root_password';" | mysql -uroot -p$db_root_password
+ echo "FLUSH PRIVILEGES;" | mysql -uroot -p$db_root_password  
+ echo "EXIT" | mysql -uroot -p$db_root_password  
    
  ## Add Database Credentias in wordpress  
  cd /var/www/html/  
