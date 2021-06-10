@@ -13,7 +13,7 @@ echo "Now install MariaDB:"
 
 mysql_secure_installation
 
-echo "Please, enter the passwor that you used for the MariaDB root user: "
+echo "Please, enter the password that you just used for the MariaDB root user once again: "
 read mariaDBRootUserPassword
 
 echo "CREATE DATABASE wordpress;" | mysql -u root -p$mariaDBRootUserPassword
