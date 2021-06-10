@@ -53,7 +53,7 @@ echo "
      ErrorLog ${APACHE_LOG_DIR}/$ipaddress_error.log
      CustomLog ${APACHE_LOG_DIR}/$ipaddress_error_access.log combined
 
-</VirtualHost>" > /etc/apache2/sites-enabled/wordpress.conf
+</VirtualHost>" > /etc/apache2/sites-available/wordpress.conf
 
 ln -s /etc/apache2/sites-available/wordpress.conf /etc/apache2/sites-enabled/wordpress.conf
 a2enmod rewrite
