@@ -39,6 +39,10 @@ read user
 echo "Insert the user password: "
 read userpassword
 
+apt update -y
+
+apt upgrade -y
+
 apt install -y apache2 php7.3 libapache2-mod-php7.3 php7.3-common php7.3-mbstring php7.3-xmlrpc php7.3-soap php7.3-gd php7.3-xml php7.3-intl php7.3-mysql php7.3-cli php7.3-ldap php7.3-zip php7.3-curl
 
 apt install -y default-mysql-server
