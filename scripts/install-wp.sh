@@ -21,6 +21,12 @@ read;
 
 clear;
 
+echo "Network configuration"
+echo "====================="
+
+ip a
+
+echo ""
 echo "First of all:"
 echo "Insert you IP Address:"
 read ipaddress
