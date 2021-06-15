@@ -16,13 +16,8 @@ echo "- Wordpress"
 echo "- senai-wp/joao-amaral-b repository"
 
 echo ""
-echo "Can we start S/n?"
-read yn
-
-if [[ yn -e "n" ]]
-then
-     exit 0;
-fi
+echo "Press [ANY] key to start or Ctrl + C to close"
+read;
 
 clear;
 
