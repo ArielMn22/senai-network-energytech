@@ -9,7 +9,7 @@ echo ""
 echo "You may be asking yourself 'What does this script does?'...";
 echo "...And I'm here to answer."
 echo ""
-echo "This script installs:"
+echo "This script will install:"
 echo "- Apache2"
 echo "- MariaDB"
 echo "- Wordpress"
@@ -73,7 +73,7 @@ chmod 755 -R /var/www/html/wordpress/
 echo "
 <VirtualHost *:80>
      ServerAdmin admin@$ipaddress_error.com
-      DocumentRoot /var/www/html/wordpress
+     DocumentRoot /var/www/html/wordpress
      ServerName $ipaddress
 
      <Directory /var/www/html/wordpress>
@@ -113,3 +113,5 @@ sed -i -e "s/ec2-3-90-218-43.compute-1.amazonaws.com/$ipaddress/g" /tmp/senai-wp
 cp -r senai-wp/* /var/www/html/wordpress
 echo "source senai-wp/full-backup-db-wp.sql" | mysql -u root -p$mariaDBRootUserPassword
 echo "GRANT ALL PRIVILEGES on wp_database.* TO 'wpuser'@'localhost' IDENTIFIED BY 'Darede@132';" | mysql -u root -p$mariaDBRootUserPassword
+
+# TODO - Alterar wp-config.php para apontar para o servidor My SQL
