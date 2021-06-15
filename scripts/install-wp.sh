@@ -1,11 +1,38 @@
 #!/bin/bash
 
-echo "Insert you IP Adress:"
+clear
+
+echo "Hello! How's your day going?";
+echo ""
+echo "This script was made to guide you through the darkness of the path to installing Wordpress and import 'joao-amaral-b's GitHub repository:";
+echo ""
+echo "You may be asking yourself 'What does this script does?'...";
+echo "...And I'm here to answer."
+echo ""
+echo "This script installs:"
+echo "- Apache2"
+echo "- MariaDB"
+echo "- Wordpress"
+echo "- senai-wp/joao-amaral-b repository"
+
+echo ""
+echo "Can we start S/n?"
+read yn
+
+if [[ yn -e "n" ]]
+then
+     exit 0;
+fi
+
+clear;
+
+echo "First of all:"
+echo "Insert you IP Address:"
 read ipaddress
 
 echo -e "\n"
 
-echo -e "MariaDB\n"
+echo -e "MariaDB Variables\n"
 echo "Insert the user to be created: "
 read user
 
@@ -22,7 +49,7 @@ echo "Now install MariaDB:"
 
 mysql_secure_installation
 
-echo "Please, enter the password that you just used for the MariaDB root user once again: "
+echo -e "\nPlease, enter the password that you just used for the MariaDB root user once again: "
 read mariaDBRootUserPassword
 
 echo "CREATE DATABASE wordpress;" | mysql -u root -p$mariaDBRootUserPassword
@@ -57,4 +84,23 @@ echo "
 
 ln -s /etc/apache2/sites-available/wordpress.conf /etc/apache2/sites-enabled/wordpress.conf
 a2enmod rewrite
+
+cd /etc/apache2/sites-available
+a2dissite 000-default.conf
+
 systemctl restart apache2
+systemctl reload apache2
+
+clear;
+
+cd /tmp
+echo "Wordpress has been installed successfully!!";
+echo "";
+echo "Now deploying senai-wp/joao-amaral-b repository...";
+
+apt install git -y
+git clone https://github.com/joao-amaral-b/senai-wp
+
+cp -r senai-wp/* /var/www/html/wordpress
+echo "source senai-wp/full-backup-db-wp.sql" | mysql -u root -p$mariaDBRootUserPassword
+echo "GRANT ALL PRIVILEGES on wp_database.* TO 'wpuser'@'localhost' IDENTIFIED BY 'Darede@132';" | mysql -u root -p$mariaDBRootUserPassword
