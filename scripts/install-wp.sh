@@ -97,8 +97,12 @@ echo "Wordpress has been installed successfully!!";
 echo "";
 echo "Now deploying senai-wp/joao-amaral-b repository...";
 
+rm -rf /tmp/senai-wp
+
 apt install git -y
 git clone https://github.com/joao-amaral-b/senai-wp
+
+sed -i -e "s/ec2-3-90-218-43.compute-1.amazonaws.com/$ipaddress/g" /tmp/senai-wp/full-backup-db-wp.sql
 
 cp -r senai-wp/* /var/www/html/wordpress
 echo "source senai-wp/full-backup-db-wp.sql" | mysql -u root -p$mariaDBRootUserPassword
