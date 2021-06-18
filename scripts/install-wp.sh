@@ -19,7 +19,6 @@ echo ""
 echo "Press [ANY] key to start or Ctrl + C to close"
 read;
 
-echo ""
 echo "First of all:"
 echo "Insert your teams's name:"
 read teamsname
