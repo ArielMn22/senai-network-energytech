@@ -14,6 +14,9 @@ echo "- Apache2"
 echo "- MariaDB"
 echo "- Wordpress"
 echo "- senai-wp/joao-amaral-b repository"
+echo ""
+echo "Credits to: Ariel Paixão"
+echo "GitHub: https://github.com/ArielMn22"
 
 echo ""
 echo "Press [ANY] key to start or Ctrl + C to close"
@@ -63,7 +66,7 @@ read mariaDBRootUserPassword
 echo "CREATE DATABASE wordpress;" | mysql -u root -p$mariaDBRootUserPassword
 echo "GRANT ALL PRIVILEGES on wordpress.* TO '$user'@'localhost' IDENTIFIED BY '$userpassword';" | mysql -u root -p$mariaDBRootUserPassword
 echo "FLUSH PRIVILEGES;" | mysql -u root -p$mariaDBRootUserPassword
-echo "EXIT;" | mysql -u root -p$mariaDBRootUserPassword
+# echo "EXIT;" | mysql -u root -p$mariaDBRootUserPassword
 
 cd /tmp/
 wget -c https://wordpress.org/latest.tar.gz
@@ -112,7 +115,7 @@ apt install git -y
 git clone https://github.com/joao-amaral-b/senai-wp
 
 sed -i -e "s/ec2-3-90-218-43.compute-1.amazonaws.com/$ipaddress/g" /tmp/senai-wp/full-backup-db-wp.sql
-sed -i -e "s/&lt;Adicionar o nome do grupo>/$teamsname/g" /tmp/senai-wp/full-backup-db-wp.sql
+sed -i -e "s/Adicionar o nome do grupo/$teamsname/g" /tmp/senai-wp/full-backup-db-wp.sql
 
 cp -r senai-wp/* /var/www/html/wordpress
 echo "source senai-wp/full-backup-db-wp.sql" | mysql -u root -p$mariaDBRootUserPassword
